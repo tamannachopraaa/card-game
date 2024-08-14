@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Details Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        .heading {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            width: 80%;
+            max-width: 1000px;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            background-color: #9bb0af;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #fff;
+            text-align: center;
+            line-height: 1.2;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .card .details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            color: #000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .card.active .details {
+            display: flex;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: inherit;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="heading">Click to see different places name!!</div>
+        <div class="container" id="card-container">
+        </div>
+    </div>
+
+    <script>
+        const cardDetails = [
+            { name: 'Mumbai', url: 'https://en.wikipedia.org/wiki/Mumbai' },
+            { name: 'Chandigarh', url: 'https://en.wikipedia.org/wiki/Chandigarh' },
+            { name: 'Hyderabad', url: 'https://en.wikipedia.org/wiki/Hyderabad' },
+            { name: 'Chennai', url: 'https://en.wikipedia.org/wiki/Chennai' },
+            { name: 'Pune', url: 'https://en.wikipedia.org/wiki/Pune' },
+            { name: 'Goa', url: 'https://en.wikipedia.org/wiki/Goa' },
+            { name: 'Punjab', url: 'https://en.wikipedia.org/wiki/Punjab,_India' },
+            { name: 'Himachal', url: 'https://himachal.nic.in/en-IN/' },
+            { name: 'Jaipur', url: 'https://en.wikipedia.org/wiki/Jaipur' },
+            { name: 'Shillong', url: 'https://en.wikipedia.org/wiki/Shillong' },
+            { name: 'Indore', url: 'https://en.wikipedia.org/wiki/Indore' },
+            { name: 'Srinagar', url: 'https://en.wikipedia.org/wiki/Srinagar' }
+        ];
+
+        const container = document.getElementById('card-container');
+
+        function createCard(detail) {
+            const card = document.createElement('a');
+            card.classList.add('card');
+            card.href = detail.url;
+            card.target = '_blank'; 
+
+            const front = document.createElement('div');
+            front.textContent = 'Click';
+            card.appendChild(front);
+
+            const details = document.createElement('div');
+            details.classList.add('details');
+            details.textContent = detail.name;
+            card.appendChild(details);
+
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                card.classList.toggle('active');
+                setTimeout(() => {
+                    window.location.href = detail.url;
+                }, 300); 
+            });
+
+            return card;
+        }
+
+        cardDetails.forEach(detail => {
+            const card = createCard(detail);
+            container.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>
